@@ -91,7 +91,7 @@ class CQT(Features):
         linear_cqt = np.abs(librosa.cqt(
             self._audio, sr=self.sr, hop_length=self.hop_length,
             n_bins=self.n_bins, norm=self.norm, filter_scale=self.filter_scale)
-                            ) ** 2
+        ) ** 2
         cqt = librosa.amplitude_to_db(linear_cqt, ref=self.ref_power).T
         return cqt
 
@@ -158,7 +158,7 @@ class MFCC(Features):
             The features, each row representing a feature vector for a give
             time frame/beat.
         """
-        S = librosa.feature.melspectrogram(self._audio,
+        S = librosa.feature.melspectrogram(y=self._audio,
                                            sr=self.sr,
                                            n_fft=self.n_fft,
                                            hop_length=self.hop_length,
@@ -342,6 +342,7 @@ class Tempogram(Features):
             The features, each row representing a feature vector for a give
             time frame/beat.
         """
-        return librosa.feature.tempogram(self._audio, sr=self.sr,
+        return librosa.feature.tempogram(y=self._audio,
+                                         sr=self.sr,
                                          hop_length=self.hop_length,
                                          win_length=self.win_length).T
